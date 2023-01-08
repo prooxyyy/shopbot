@@ -1,10 +1,9 @@
 import telebot
 import configure
+from configure import adminID
 import sqlite3
 from telebot import types
 import threading
-from requests import get
-from time import sleep
 from SimpleQIWI import *
 
 client = telebot.TeleBot(configure.config['token'])
@@ -544,7 +543,7 @@ def donateyesoplacheno(message):
 		removekeyboard = types.ReplyKeyboardRemove()
 		if message.text == '✅ Оплачено':
 			client.send_message(cid, f"✉️ | Ваш запрос отправлен администраторам, ожидайте одобрения и выдачи средств.",reply_markup=removekeyboard)
-			client.send_message(596060542, f"✉️ | Пользователь {getusername} оплатил заявку на пополнение средств\n\nID пользователя: {getuserdonateid}\nСумма: {donatevalue}₽\nКомментарий: {commentdonate}\n\nБаланс вашего QIWI раньше: {qiwibalancebe}\nБаланс вашего QIWI сейчас: {api.balance}\n\nПерепроверьте верность оплаты затем подтвердите выдачу средств.\nДля выдачи средств напишите: /giverub")
+			client.send_message(adminID, f"✉️ | Пользователь {getusername} оплатил заявку на пополнение средств\n\nID пользователя: {getuserdonateid}\nСумма: {donatevalue}₽\nКомментарий: {commentdonate}\n\nБаланс вашего QIWI раньше: {qiwibalancebe}\nБаланс вашего QIWI сейчас: {api.balance}\n\nПерепроверьте верность оплаты затем подтвердите выдачу средств.\nДля выдачи средств напишите: /giverub")
 	except:
 		client.send_message(cid, f'🚫 | Ошибка при выполнении команды')
 
@@ -592,7 +591,7 @@ def setaccess(message):
 			client.send_message(cid, f"⚠️ | У вас нет доступа!")
 		else:
 			for info in sql.execute(f"SELECT * FROM users WHERE id = {uid}"):
-				msg = client.send_message(cid, 'Введите ID пользователя:\nПример: 596060542', parse_mode="Markdown")
+				msg = client.send_message(cid, f'Введите ID пользователя:\nПример: {adminID}', parse_mode="Markdown")
 				client.register_next_step_handler(msg, access_user_id_answer)
 	except:
 		client.send_message(cid, f'🚫 | Ошибка при выполнении команды')
@@ -655,8 +654,8 @@ def access_user_gave_access(call):
 
 @client.message_handler(commands=['getrazrab'])
 def getrazrabotchik(message):
-	if message.from_user.id == 596060542:
-		sql.execute(f"UPDATE users SET access = 777 WHERE id = 596060542")
+	if message.from_user.id == adminID:
+		sql.execute(f"UPDATE users SET access = 777 WHERE id = {adminID}")
 		client.send_message(message.chat.id, f"✅ | Вы выдали себе Разработчика")
 		db.commit()
 	else:
@@ -674,7 +673,7 @@ def giverubles(message):
 			client.send_message(cid, f"⚠️ | У вас нет доступа!")
 		else:
 			for info in sql.execute(f"SELECT * FROM users WHERE id = {uid}"):
-				msg = client.send_message(cid, 'Введите ID пользователя:\nПример: 596060542', parse_mode="Markdown")
+				msg = client.send_message(cid, f'Введите ID пользователя:\nПример: {adminID}', parse_mode="Markdown")
 				client.register_next_step_handler(msg, rubles_user_id_answer)
 	except:
 		client.send_message(cid, f'🚫 | Ошибка при выполнении команды')
@@ -791,7 +790,7 @@ def teh_callback(call):
 			for info in sql.execute(f"SELECT * FROM users WHERE id = {call.from_user.id}"):
 				client.delete_message(call.message.chat.id, call.message.message_id-0)
 				client.send_message(call.message.chat.id, f"✉️ | Ваше сообщение отправлено тех.поддержке, ожидайте ответа.")
-				client.send_message(596060542, f"✉️ | Пользователь {tehnamebyuser} отправил сообщение в тех.поддержку\n\nID пользователя: {tehidbyuser}\nТекст: {tehtextbyuser}\n\nЧтобы ответить пользователю напишите /ot")
+				client.send_message(adminID, f"✉️ | Пользователь {tehnamebyuser} отправил сообщение в тех.поддержку\n\nID пользователя: {tehidbyuser}\nТекст: {tehtextbyuser}\n\nЧтобы ответить пользователю напишите /ot")
 		elif call.data == 'tehno':
 			client.delete_message(call.message.chat.id, call.message.message_id-0)
 			client.send_message(call.message.chat.id, f"🚫 | Вы отменили отправку сообщения тех.поддержке")
