@@ -158,17 +158,13 @@
 
 Весь исходный код находиться в файле `bot.py`
 
-Открываем файл `bot.py` затем ищем строку
-
-![image](https://user-images.githubusercontent.com/94528892/142184961-c7d2d0be-7815-4d35-bda2-351032b32e77.png)
-
-В чате с ботом пишем `/profile`
+Открываем файл `configure.py`
+В строку `'adminID'` нужно вписать ваш айди
+Для этого в чате с ботом пишем `/profile`
 
 ![image](https://user-images.githubusercontent.com/94528892/142185194-f71a4acd-f48d-470f-aaaa-66c666a755b1.png)
 
-Копируем ваш ID затем вставялем в строку `WHERE id = 596060542` и `if message.from_user.id == 596060542:` ваш ID
-
-![image](https://user-images.githubusercontent.com/94528892/142185458-d0a034b3-0302-45d4-ba7d-11fe138025be.png)
+Копируем ваш ID затем вставялем в `'adminID'`
 
 Затем сохраняем и перезапускаем бота.
 В чат с ботом пишем `/getrazrab` и всё! Вы получили админку разработчика
@@ -176,12 +172,6 @@
 ![image](https://user-images.githubusercontent.com/94528892/142185660-f9b67c5b-d8c7-4a21-97d9-ff4a95471398.png)
 
 ![image](https://user-images.githubusercontent.com/94528892/142185690-eff4296c-ede4-4322-837d-7d9827655d68.png)
-
-Далее находим строку 223 'def donateyesoplacheno'
-
-![image](https://user-images.githubusercontent.com/94528892/142187463-7a46f327-857c-42a5-abf3-8017f774af5d.png)
-
-И вместо `596060542` вписываем свой ID
 
 Всё, бот полностью настроен!
 Советую поставить бота на хостинг по типу:
