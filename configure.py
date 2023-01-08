@@ -4,3 +4,5 @@ config = {
 	'tokenqiwi': '',
 	'phoneqiwi': ''
 }
+
+adminID = int('')
